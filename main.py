@@ -264,6 +264,3 @@ with amazon_tab:
 with metacritic_tab:
     st.subheader("Sekme 5")
     st.write("Burada Sekme 5 içeriği bulunacak.")
-
-st.markdown(music_html, unsafe_allow_html=True)
-
