@@ -61,7 +61,7 @@ def content_based_recommender(title, cosine_sim, dataframe):
 
 
 
-st.image('C:/Users/erhan/OneDrive/Resimler/miuulentertainment.gif',width=1400)
+st.image('miuulentertainment.gif',width=1400)
 st.title(':rainbow[MIUULtainment] :house: :movie_camera: :video_game:  :green_book: 🎶')
 
 st.markdown('**Miuultainment: Enjoy a Unique Experience of Entertainment!**')
@@ -72,52 +72,6 @@ Whether you're searching for a fantastic Airbnb for your next vacation, an encha
 
 
 home_tab, airbnb_tab, amazon_tab, tmdb_tab, metacritic_tab = st.tabs(["Home","AirBnb", "Amazon", "TMDB", "MetaCritic"])
-
-music_html = """
-<audio id="audio1" autoplay style="display:none;">
-  <source src="https://soundfxcenter.com/movies/matrix/8d82b5_Matrix_Welcome_To_The_Real_World_Sound_Effect.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="audio2" autoplay style="display:none;">
-  <source src="https://soundfxcenter.com/movies/matrix/8d82b5_Matrix_Welcome_To_The_Real_World_Sound_Effect.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="audio3" autoplay style="display:none;">
-  <source src="https://soundfxcenter.com/movies/matrix/8d82b5_Matrix_Welcome_To_The_Real_World_Sound_Effect.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="audio4" autoplay style="display:none;">
-  <source src="https://soundfxcenter.com/movies/matrix/8d82b5_Matrix_Welcome_To_The_Real_World_Sound_Effect.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="audio5" autoplay style="display:none;">
-  <source src="https://soundfxcenter.com/movies/matrix/8d82b5_Matrix_Welcome_To_The_Real_World_Sound_Effect.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-  const tabs = document.querySelectorAll('.stTabs [role="tab"]');
-  let currentAudio = 0;
-  
-  function playAudio(index) {
-
-    for (let i = 1; i <= 5; i++) {
-      document.getElementById('audio' + i).pause();
-    }
-
-    document.getElementById('audio' + (index + 1)).play();
-  }
-
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => {
-      playAudio(index);
-    });
-  });
-
-  playAudio(0);
-});
-</script>
-"""
 
 
 
