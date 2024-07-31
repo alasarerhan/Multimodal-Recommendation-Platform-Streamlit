@@ -16,7 +16,7 @@ st.set_page_config(layout= 'wide', page_title = 'Miuultainment')
 
 @st.cache_data
 def get_airbnb():
-    airbnb = pd.read_csv('data/airbnb_data.csv')
+    airbnb = pd.read_csv('airbnb_data.csv')
     return airbnb 
 
 airbnb_data = get_airbnb()
@@ -24,7 +24,7 @@ airbnb_data = get_airbnb()
 
 @st.cache_data
 def get_data():
-    meta = pd.read_csv('data/movie_recommendation_file.csv')
+    meta = pd.read_csv('movie_recommendation_file.csv')
     return meta
 
 meta = get_data()
