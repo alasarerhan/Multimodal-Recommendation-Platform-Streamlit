@@ -13,13 +13,13 @@ from sklearn.preprocessing import StandardScaler
 import streamlit.components.v1 as components
 
 st.set_page_config(layout= 'wide', page_title = 'Miuultainment')
+#
+#@st.cache_data
+#def get_airbnb():
+#    airbnb = pd.read_csv('airbnb_data.csv')
+#    return airbnb 
 
-@st.cache_data
-def get_airbnb():
-    airbnb = pd.read_csv('airbnb_data.csv')
-    return airbnb 
-
-airbnb_data = get_airbnb()
+#airbnb_data = get_airbnb()
 
 
 @st.cache_data
@@ -156,105 +156,108 @@ with tmdb_tab:
 
 with airbnb_tab:
 
-    airbnb_col1, airbnb_col2, airbnb_col3, airbnb_col4 = airbnb_tab.columns(4)
-    selected_neighboorhood = airbnb_col1.selectbox('Neighboord', options= airbnb_data.neighbourhood_group.unique())
+  st.subheader("Sekme 2")
+    st.write("Burada Sekme 2 içeriği bulunacak.")
 
-    price_min = airbnb_col2.number_input('Min. Price', min_value=0, max_value= airbnb_data.price.max().astype(int), value = 0)
-    price_max = airbnb_col2.number_input('Max. Price', min_value=1, max_value = airbnb_data.price.max().astype(int), value= 999)
-    selected_room_type = airbnb_col3.selectbox('Room Type', options = airbnb_data['room type'].unique())
-    selected_cancellation_policy = airbnb_col4.selectbox('Cancellation Policy', options = airbnb_data['cancellation_policy'].unique())
+    # airbnb_col1, airbnb_col2, airbnb_col3, airbnb_col4 = airbnb_tab.columns(4)
+    # selected_neighboorhood = airbnb_col1.selectbox('Neighboord', options= airbnb_data.neighbourhood_group.unique())
 
-
-    airbnb_tab.markdown("""
-        <style>
-        .space-above {
-            margin-top: 20px;
-        }
-        .stButton>button {
-            background-color: #a3c9f1;
-            color: #000000;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-
-    aircol1, aircol2, aircol3 = airbnb_tab.columns([1,0.5,1], gap='large')
-    airrecommend_button = aircol2.button('Recommend AirBnb')
+    # price_min = airbnb_col2.number_input('Min. Price', min_value=0, max_value= airbnb_data.price.max().astype(int), value = 0)
+    # price_max = airbnb_col2.number_input('Max. Price', min_value=1, max_value = airbnb_data.price.max().astype(int), value= 999)
+    # selected_room_type = airbnb_col3.selectbox('Room Type', options = airbnb_data['room type'].unique())
+    # selected_cancellation_policy = airbnb_col4.selectbox('Cancellation Policy', options = airbnb_data['cancellation_policy'].unique())
 
 
-    def recommend_airbnb(user_neighbourhood_group,user_price_range_min,user_price_range_max, user_room_type, user_cancellation_policy, num_neighbors=2,num_recommendations = 500,limit = 3):
+    # airbnb_tab.markdown("""
+    #     <style>
+    #     .space-above {
+    #         margin-top: 20px;
+    #     }
+    #     .stButton>button {
+    #         background-color: #a3c9f1;
+    #         color: #000000;
+    #     }
+    #     </style>
+    #     """, unsafe_allow_html=True)
 
-        # Kullanıcı kriterlerine göre filtreleme
-        filtered_listings = airbnb_data[
-            (airbnb_data['neighbourhood_group'] == user_neighbourhood_group) &
-            (airbnb_data['price'] >= user_price_range_min) &
-            (airbnb_data['price'] <= user_price_range_max) &
-            (airbnb_data['room type'] == user_room_type) &
-            (airbnb_data['cancellation_policy']==user_cancellation_policy)
-        ]
+    # aircol1, aircol2, aircol3 = airbnb_tab.columns([1,0.5,1], gap='large')
+    # airrecommend_button = aircol2.button('Recommend AirBnb')
+
+
+    # def recommend_airbnb(user_neighbourhood_group,user_price_range_min,user_price_range_max, user_room_type, user_cancellation_policy, num_neighbors=2,num_recommendations = 500,limit = 3):
+
+    #     # Kullanıcı kriterlerine göre filtreleme
+    #     filtered_listings = airbnb_data[
+    #         (airbnb_data['neighbourhood_group'] == user_neighbourhood_group) &
+    #         (airbnb_data['price'] >= user_price_range_min) &
+    #         (airbnb_data['price'] <= user_price_range_max) &
+    #         (airbnb_data['room type'] == user_room_type) &
+    #         (airbnb_data['cancellation_policy']==user_cancellation_policy)
+    #     ]
         
 
-        if filtered_listings.empty:
-            airbnb_tab.text("Kriterlere uygun sonuç bulunamadı.")
-            return None
+    #     if filtered_listings.empty:
+    #         airbnb_tab.text("Kriterlere uygun sonuç bulunamadı.")
+    #         return None
 
-        # Kullanılacak özellikleri seçelim
-        features = airbnb_data[['price', "service fee", 'number of reviews', 'review rate number', 'lat', 'long']]
-        scaler = StandardScaler()
-        features_scaled = scaler.fit_transform(features)
+    #     # Kullanılacak özellikleri seçelim
+    #     features = airbnb_data[['price', "service fee", 'number of reviews', 'review rate number', 'lat', 'long']]
+    #     scaler = StandardScaler()
+    #     features_scaled = scaler.fit_transform(features)
         
-        # K-Nearest Neighbors modelini oluşturalım
-        knn = NearestNeighbors(n_neighbors=num_neighbors, algorithm='auto')
-        knn.fit(features_scaled)
+    #     # K-Nearest Neighbors modelini oluşturalım
+    #     knn = NearestNeighbors(n_neighbors=num_neighbors, algorithm='auto')
+    #     knn.fit(features_scaled)
 
-        # Filtrelenmiş evlerin özelliklerini alalım
-        filtered_features = filtered_listings[['price', "service fee", 'number of reviews', 'review rate number', 'lat', 'long']]
-        filtered_features_scaled = scaler.transform(filtered_features)
+    #     # Filtrelenmiş evlerin özelliklerini alalım
+    #     filtered_features = filtered_listings[['price', "service fee", 'number of reviews', 'review rate number', 'lat', 'long']]
+    #     filtered_features_scaled = scaler.transform(filtered_features)
 
-        # Benzer evleri bulalım
-        distances, indices = knn.kneighbors(filtered_features_scaled)
+    #     # Benzer evleri bulalım
+    #     distances, indices = knn.kneighbors(filtered_features_scaled)
 
-        # Benzer ev ilanlarının bilgilerini alalım
-        recommended_listings = airbnb_data.iloc[indices.flatten()]
+    #     # Benzer ev ilanlarının bilgilerini alalım
+    #     recommended_listings = airbnb_data.iloc[indices.flatten()]
 
-        # Yalnızca review rate number 3 ve üzeri olanları filtreleyelim
-        recommended_listings = recommended_listings[recommended_listings['review rate number'] >= limit]
+    #     # Yalnızca review rate number 3 ve üzeri olanları filtreleyelim
+    #     recommended_listings = recommended_listings[recommended_listings['review rate number'] >= limit]
         
-        if recommended_listings.empty:
-            airbnb_tab.text(f"Review rate number {limit} ve üzeri uygun sonuç bulunamadı.")
-            return None
+    #     if recommended_listings.empty:
+    #         airbnb_tab.text(f"Review rate number {limit} ve üzeri uygun sonuç bulunamadı.")
+    #         return None
         
-        # Review rate number'a göre büyükten küçüğe sıralayalım
-        recommended_listings = recommended_listings.sort_values(by='review rate number', ascending=False)
+    #     # Review rate number'a göre büyükten küçüğe sıralayalım
+    #     recommended_listings = recommended_listings.sort_values(by='review rate number', ascending=False)
         
-        # İlk num_recommendations tanesini seçelim
-        top_recommendations = recommended_listings.head(num_recommendations)
-        top_recommendations['number of reviews'] = top_recommendations['number of reviews'].astype(int)
-        # Ortalama konumu bulalım
-        avg_lat = top_recommendations['lat'].mean()
-        avg_long = top_recommendations['long'].mean()
+    #     # İlk num_recommendations tanesini seçelim
+    #     top_recommendations = recommended_listings.head(num_recommendations)
+    #     top_recommendations['number of reviews'] = top_recommendations['number of reviews'].astype(int)
+    #     # Ortalama konumu bulalım
+    #     avg_lat = top_recommendations['lat'].mean()
+    #     avg_long = top_recommendations['long'].mean()
 
-        # Haritayı oluştur
-        map_ = folium.Map(location=[avg_lat, avg_long], zoom_start=10)
-        marker_cluster = MarkerCluster().add_to(map_)
+    #     # Haritayı oluştur
+    #     map_ = folium.Map(location=[avg_lat, avg_long], zoom_start=10)
+    #     marker_cluster = MarkerCluster().add_to(map_)
         
-        for idx, row in top_recommendations.iterrows():
-            folium.Marker(
-                location=[row['lat'], row['long']],
-                popup=f"<strong>{row['NAME']}</strong><br>Price: ${row['price']}<br>Service Fee: ${row['service fee']}<br>Review Rate: {row['review rate number']}<br>Number of Reviews: {row['number of reviews']}",
-                icon=folium.Icon(color='blue', icon='info-sign')
-            ).add_to(marker_cluster)
-        # Haritayı Jupyter Notebook içinde görüntüle
-        return map_, top_recommendations
+    #     for idx, row in top_recommendations.iterrows():
+    #         folium.Marker(
+    #             location=[row['lat'], row['long']],
+    #             popup=f"<strong>{row['NAME']}</strong><br>Price: ${row['price']}<br>Service Fee: ${row['service fee']}<br>Review Rate: {row['review rate number']}<br>Number of Reviews: {row['number of reviews']}",
+    #             icon=folium.Icon(color='blue', icon='info-sign')
+    #         ).add_to(marker_cluster)
+    #     # Haritayı Jupyter Notebook içinde görüntüle
+    #     return map_, top_recommendations
 
 
-    if airrecommend_button:
-        if price_min > price_max:
-            airbnb_tab.text('Minimum Price cannot be bigger than Maximum Price')
-        else:
-            map_, recommendations = recommend_airbnb(user_neighbourhood_group = selected_neighboorhood, user_price_range_min = price_min,
-                user_price_range_max=price_max, user_room_type = selected_room_type,user_cancellation_policy= selected_cancellation_policy)
+    # if airrecommend_button:
+    #     if price_min > price_max:
+    #         airbnb_tab.text('Minimum Price cannot be bigger than Maximum Price')
+    #     else:
+    #         map_, recommendations = recommend_airbnb(user_neighbourhood_group = selected_neighboorhood, user_price_range_min = price_min,
+    #             user_price_range_max=price_max, user_room_type = selected_room_type,user_cancellation_policy= selected_cancellation_policy)
         
-            folium_static(map_, width=1400, height=600)
+    #         folium_static(map_, width=1400, height=600)
 
 
 with amazon_tab:
