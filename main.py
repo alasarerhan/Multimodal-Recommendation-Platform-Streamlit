@@ -13,18 +13,11 @@ from sklearn.preprocessing import StandardScaler
 import streamlit.components.v1 as components
 
 st.set_page_config(layout= 'wide', page_title = 'Miuultainment')
-#
-#@st.cache_data
-#def get_airbnb():
-#    airbnb = pd.read_csv('airbnb_data.csv')
-#    return airbnb 
-
-#airbnb_data = get_airbnb()
 
 
 @st.cache_data
 def get_data():
-    meta = pd.read_csv('movie_recommendation_file.csv')
+    meta = pd.read_csv('data/movie_recommendation_file.csv')
     return meta
 
 meta = get_data()
@@ -56,12 +49,12 @@ def content_based_recommender(title, cosine_sim, dataframe):
     similarity_scores_df = pd.DataFrame(similarity_scores, index=dataframe.index, columns=["score"])
         # Kendisi haric ilk 10 filmi getirme
     movie_indices = similarity_scores_df.sort_values(by="score", ascending=False).index[1:11]
-    last_df = dataframe[['id','title','vote_average']].iloc[movie_indices].sort_values('vote_average',ascending = False)[0:10]
-    return last_df[['id','title','vote_average']]
+        # Film bilgilerini döndürme
+    return dataframe.loc[movie_indices]
 
 
 
-st.image('miuulentertainment.gif',width=1400)
+st.image('C:/Users/erhan/OneDrive/Resimler/miuulentertainment.gif',width=1400)
 st.title(':rainbow[MIUULtainment] :house: :movie_camera: :video_game:  :green_book: 🎶')
 
 st.markdown('**Miuultainment: Enjoy a Unique Experience of Entertainment!**')
@@ -74,40 +67,57 @@ Whether you're searching for a fantastic Airbnb for your next vacation, an encha
 home_tab, airbnb_tab, amazon_tab, tmdb_tab, metacritic_tab = st.tabs(["Home","AirBnb", "Amazon", "TMDB", "MetaCritic"])
 
 
-
- #! Home Tab
-with home_tab:
-
-   
-    home_tab.header('Discover Your Next Adventure')
-    home_tab.write("""At Miuultainment, we believe that every experience should be extraordinary. 
+ 
+with st.container():  # 'home_tab' yerine st.container kullanın
+    st.header('Discover Your Next Adventure')
+    st.write("""At Miuultainment, we believe that every experience should be extraordinary. 
     Our platform curates personalized recommendations based on your preferences, ensuring that you find the perfect match every time.""")
 
-    col_airbnb, col_amazon, col_movie, col_game = home_tab.columns(4)
+    col_airbnb, col_amazon, col_movie, col_game = st.columns(4)
+    
+
+    #! airbnb column
     col_airbnb.header('Stay in the Best Places')
-    airbnb = '1airbnb.png'
-    col_airbnb.image(airbnb)
+    image_airbnb = 'https://media1.tenor.com/m/rsSIoLjds9UAAAAC/airbnb-door.gif'
+    redirect_airbnb = "https://www.airbnb.com.tr/"
+    html_airbnb = f"""<a href="{redirect_airbnb}" target="_blank"><img src="{image_airbnb}" style="width:300px;height:200px;"></a>"""
+    col_airbnb.markdown(html_airbnb, unsafe_allow_html=True)
+    
     col_airbnb.write("""Explore our extensive collection of top-rated Airbnb's. 
                     From cozy cabins in the woods to luxurious city apartments, we provide you with the best options to make your stay unforgettable.""")
 
-    col_amazon.header('Read Engaging Books')
-    amazon = 'amazonbooks.png'
-    col_amazon.image(amazon)
-    col_amazon.write("""Dive into a world of literature with our handpicked book recommendations. Whether you love fiction, non-fiction, mystery,
-                romance, or sci-fi, Miuultainment helps you discover books that you'll love.""")
 
-
+    #! imdb column
     col_movie.header('Watch Captivating Movies')
-    tmdb = 'tmdb.jpg'
-    col_movie.image(tmdb)
+    image_movie = 'https://media.tenor.com/S1r_YTIOtKgAAAAM/movie-bored.gif'
+    redirect_movie = "https://appent-g9qe2nhwhrvvgnhkqybvzq.streamlit.app/"
+    html_movie = f"""<a href="{redirect_movie}" target="_blank"><img src="{image_movie}" style="width:300px;height:200px;"></a>"""
+    col_movie.markdown(html_movie, unsafe_allow_html=True)
+
     col_movie.write("""Enjoy a cinematic experience with our movie suggestions. Whether you’re into thrillers, comedies, dramas, or documentaries,
                 Miuultainment ensures you never run out of great movies to watch.""")
 
+    
+    #! amazon column
+    col_amazon.header('Read Engaging Books')
+    image_amazon = "https://media1.tenor.com/m/e45JF2Wtvv0AAAAC/cat99-cat999.gif"
+    redirect_amazon = "https://www.amazon.com/Best-Books-of-2024-So-Far/b?ie=UTF8&node=3003015011"
+    html_amazon = f"""<a href="{redirect_amazon}" target="_blank"><img src="{image_amazon}" style="width:300px;height:200px;"></a>"""
+    col_amazon.markdown(html_amazon, unsafe_allow_html=True)
+    col_amazon.write("""Dive into our selection of engaging books.
+                From thrilling mysteries to heartwarming romances, find the perfect read to captivate your mind and spirit.""")
+
+
+    #! steam column
     col_game.header('Play Exciting Games')
-    metacritic = 'metacritic.png'
-    col_game.image(metacritic)
+    image_steam = "https://media1.tenor.com/m/zjbXreUb5_YAAAAd/steam.gif"
+    redirect_steam = "https://store.steampowered.com/"
+    html_steam = html_movie = f"""<a href="{redirect_steam}" target="_blank"><img src="{image_steam}" style="width:300px;height:200px;"></a>"""
+    col_game.markdown(html_steam, unsafe_allow_html=True)
+
     col_game.write("""Level up your gaming experience with our curated game recommendations. 
                 From action-packed adventures to mind-bending puzzles, find the perfect game to keep you entertained for hours.""")
+    
     
  
 #! TMDB tab
@@ -147,122 +157,3 @@ with tmdb_tab:
                 if image_url:
                     movie_col.image(image_url,width = 200, use_column_width=True)
 
-    #! popular movies deneme
-
-    # popular_movies = meta[['id', 'imdb_id','title','vote_average', 'vote_count']].sort_values(by='vote_average',ascending=False)[:50].reset_index(drop=True)
-    # image_urls = [get_image_from_imdb(imdb_id) for imdb_id in popular_movies['imdb_id']]
-    # tmdb_tab.title('Popular Movies')
-
-
-with airbnb_tab:
-    st.subheader("Sekme 2")
-    st.write("Burada Sekme 2 içeriği bulunacak.")
-
-    # airbnb_col1, airbnb_col2, airbnb_col3, airbnb_col4 = airbnb_tab.columns(4)
-    # selected_neighboorhood = airbnb_col1.selectbox('Neighboord', options= airbnb_data.neighbourhood_group.unique())
-
-    # price_min = airbnb_col2.number_input('Min. Price', min_value=0, max_value= airbnb_data.price.max().astype(int), value = 0)
-    # price_max = airbnb_col2.number_input('Max. Price', min_value=1, max_value = airbnb_data.price.max().astype(int), value= 999)
-    # selected_room_type = airbnb_col3.selectbox('Room Type', options = airbnb_data['room type'].unique())
-    # selected_cancellation_policy = airbnb_col4.selectbox('Cancellation Policy', options = airbnb_data['cancellation_policy'].unique())
-
-
-    # airbnb_tab.markdown("""
-    #     <style>
-    #     .space-above {
-    #         margin-top: 20px;
-    #     }
-    #     .stButton>button {
-    #         background-color: #a3c9f1;
-    #         color: #000000;
-    #     }
-    #     </style>
-    #     """, unsafe_allow_html=True)
-
-    # aircol1, aircol2, aircol3 = airbnb_tab.columns([1,0.5,1], gap='large')
-    # airrecommend_button = aircol2.button('Recommend AirBnb')
-
-
-    # def recommend_airbnb(user_neighbourhood_group,user_price_range_min,user_price_range_max, user_room_type, user_cancellation_policy, num_neighbors=2,num_recommendations = 500,limit = 3):
-
-    #     # Kullanıcı kriterlerine göre filtreleme
-    #     filtered_listings = airbnb_data[
-    #         (airbnb_data['neighbourhood_group'] == user_neighbourhood_group) &
-    #         (airbnb_data['price'] >= user_price_range_min) &
-    #         (airbnb_data['price'] <= user_price_range_max) &
-    #         (airbnb_data['room type'] == user_room_type) &
-    #         (airbnb_data['cancellation_policy']==user_cancellation_policy)
-    #     ]
-        
-
-    #     if filtered_listings.empty:
-    #         airbnb_tab.text("Kriterlere uygun sonuç bulunamadı.")
-    #         return None
-
-    #     # Kullanılacak özellikleri seçelim
-    #     features = airbnb_data[['price', "service fee", 'number of reviews', 'review rate number', 'lat', 'long']]
-    #     scaler = StandardScaler()
-    #     features_scaled = scaler.fit_transform(features)
-        
-    #     # K-Nearest Neighbors modelini oluşturalım
-    #     knn = NearestNeighbors(n_neighbors=num_neighbors, algorithm='auto')
-    #     knn.fit(features_scaled)
-
-    #     # Filtrelenmiş evlerin özelliklerini alalım
-    #     filtered_features = filtered_listings[['price', "service fee", 'number of reviews', 'review rate number', 'lat', 'long']]
-    #     filtered_features_scaled = scaler.transform(filtered_features)
-
-    #     # Benzer evleri bulalım
-    #     distances, indices = knn.kneighbors(filtered_features_scaled)
-
-    #     # Benzer ev ilanlarının bilgilerini alalım
-    #     recommended_listings = airbnb_data.iloc[indices.flatten()]
-
-    #     # Yalnızca review rate number 3 ve üzeri olanları filtreleyelim
-    #     recommended_listings = recommended_listings[recommended_listings['review rate number'] >= limit]
-        
-    #     if recommended_listings.empty:
-    #         airbnb_tab.text(f"Review rate number {limit} ve üzeri uygun sonuç bulunamadı.")
-    #         return None
-        
-    #     # Review rate number'a göre büyükten küçüğe sıralayalım
-    #     recommended_listings = recommended_listings.sort_values(by='review rate number', ascending=False)
-        
-    #     # İlk num_recommendations tanesini seçelim
-    #     top_recommendations = recommended_listings.head(num_recommendations)
-    #     top_recommendations['number of reviews'] = top_recommendations['number of reviews'].astype(int)
-    #     # Ortalama konumu bulalım
-    #     avg_lat = top_recommendations['lat'].mean()
-    #     avg_long = top_recommendations['long'].mean()
-
-    #     # Haritayı oluştur
-    #     map_ = folium.Map(location=[avg_lat, avg_long], zoom_start=10)
-    #     marker_cluster = MarkerCluster().add_to(map_)
-        
-    #     for idx, row in top_recommendations.iterrows():
-    #         folium.Marker(
-    #             location=[row['lat'], row['long']],
-    #             popup=f"<strong>{row['NAME']}</strong><br>Price: ${row['price']}<br>Service Fee: ${row['service fee']}<br>Review Rate: {row['review rate number']}<br>Number of Reviews: {row['number of reviews']}",
-    #             icon=folium.Icon(color='blue', icon='info-sign')
-    #         ).add_to(marker_cluster)
-    #     # Haritayı Jupyter Notebook içinde görüntüle
-    #     return map_, top_recommendations
-
-
-    # if airrecommend_button:
-    #     if price_min > price_max:
-    #         airbnb_tab.text('Minimum Price cannot be bigger than Maximum Price')
-    #     else:
-    #         map_, recommendations = recommend_airbnb(user_neighbourhood_group = selected_neighboorhood, user_price_range_min = price_min,
-    #             user_price_range_max=price_max, user_room_type = selected_room_type,user_cancellation_policy= selected_cancellation_policy)
-        
-    #         folium_static(map_, width=1400, height=600)
-
-
-with amazon_tab:
-    st.subheader("Sekme 4")
-    st.write("Burada Sekme 4 içeriği bulunacak.")
-
-with metacritic_tab:
-    st.subheader("Sekme 5")
-    st.write("Burada Sekme 5 içeriği bulunacak.")
