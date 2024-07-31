@@ -131,26 +131,26 @@ with home_tab:
 
     col_airbnb, col_amazon, col_movie, col_game = home_tab.columns(4)
     col_airbnb.header('Stay in the Best Places')
-    airbnb = 'C:/Users/erhan/OneDrive/Resimler/1airbnb.png'
+    airbnb = '1airbnb.png'
     col_airbnb.image(airbnb)
     col_airbnb.write("""Explore our extensive collection of top-rated Airbnb's. 
                     From cozy cabins in the woods to luxurious city apartments, we provide you with the best options to make your stay unforgettable.""")
 
     col_amazon.header('Read Engaging Books')
-    amazon = 'C:/Users/erhan/OneDrive/Resimler/amazonbooks.png'
+    amazon = 'amazonbooks.png'
     col_amazon.image(amazon)
     col_amazon.write("""Dive into a world of literature with our handpicked book recommendations. Whether you love fiction, non-fiction, mystery,
                 romance, or sci-fi, Miuultainment helps you discover books that you'll love.""")
 
 
     col_movie.header('Watch Captivating Movies')
-    tmdb = 'C:/Users/erhan/OneDrive/Resimler/tmdb.jpg'
+    tmdb = 'tmdb.jpg'
     col_movie.image(tmdb)
     col_movie.write("""Enjoy a cinematic experience with our movie suggestions. Whether you’re into thrillers, comedies, dramas, or documentaries,
                 Miuultainment ensures you never run out of great movies to watch.""")
 
     col_game.header('Play Exciting Games')
-    metacritic = 'C:/Users/erhan/OneDrive/Resimler/metacritic.png'
+    metacritic = 'metacritic.png'
     col_game.image(metacritic)
     col_game.write("""Level up your gaming experience with our curated game recommendations. 
                 From action-packed adventures to mind-bending puzzles, find the perfect game to keep you entertained for hours.""")
