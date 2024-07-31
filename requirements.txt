@@ -4,4 +4,4 @@ folium
 scikit-learn>=1.0
 streamlit_folium
 requests
-
+lxml
