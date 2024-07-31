@@ -55,7 +55,7 @@ def content_based_recommender(title, cosine_sim, dataframe):
         # Benzerlik skorlarını DataFrame'e dönüştürme
     similarity_scores_df = pd.DataFrame(similarity_scores, index=dataframe.index, columns=["score"])
         # Kendisi haric ilk 10 filmi getirme
-    movie_indices = similarity_scores_df.sort_values(by="score", ascending=False).index[1:15]
+    movie_indices = similarity_scores_df.sort_values(by="score", ascending=False).index[1:11]
     last_df = dataframe[['title','vote_average']].iloc[movie_indices].sort_values('vote_average',ascending = False)[0:10]
     return last_df[['title','vote_average']]
 
