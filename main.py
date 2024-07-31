@@ -155,8 +155,7 @@ with tmdb_tab:
 
 
 with airbnb_tab:
-
-  st.subheader("Sekme 2")
+    st.subheader("Sekme 2")
     st.write("Burada Sekme 2 içeriği bulunacak.")
 
     # airbnb_col1, airbnb_col2, airbnb_col3, airbnb_col4 = airbnb_tab.columns(4)
