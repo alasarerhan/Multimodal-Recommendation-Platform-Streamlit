@@ -3,21 +3,6 @@ import requests
 from lxml import html
 import json
 
-def get_trailer_xpath(imdb_id):
-    url = f"https://www.imdb.com/title/{imdb_id}/"
-    page = requests.get(url)
-    tree = html.fromstring(page.content)
-
-    # Trailer linki için genel bir XPath
-    trailer_xpath = '//a[contains(@href, "videoplayer") and contains(@aria-label, "Trailer")]'
-
-    # XPath'i kullanarak trailer linkini bul
-    trailer_link = tree.xpath(trailer_xpath)
-    for link in trailer_link:
-        print(link.get("href"))
-    return trailer_link
-
-
 def get_image_from_imdb(imdb_id):
     url = f"https://www.imdb.com/title/{imdb_id}/"
     
@@ -40,34 +25,6 @@ def get_image_from_imdb(imdb_id):
         print(f"Image not found for {imdb_id}")
         return None
 
-
-
-
-"""
-def get_trailer_from_imdb(imdb_id):
-    url = f"https://www.imdb.com/title/{imdb_id}/"
-    response = requests.get(url)
-    response.raise_for_status()  # Hata varsa raise et
-
-    # HTML içeriğini parse et
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    # JSON-LD scriptini bul
-    json_ld_script = soup.find('script', type='application/ld+json')
-    if not json_ld_script:
-        return None
-
-    # JSON-LD scriptini parse et
-    try:
-        json_data = json.loads(json_ld_script.string)
-        # embedUrl'yi al
-        embed_url = json_data.get("url", "")
-        return embed_url
-    except json.JSONDecodeError:
-        return None
-
-
-"""
 
 
 if __name__ == "__main__":
