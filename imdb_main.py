@@ -133,8 +133,8 @@ with col3:
 
     # Start exploring and find your next great movie with ease!
 st.header("")    
-st.subheader('Looking for something else? Check these out... ')
-airbnb, book, game, anime = st.columns(4)
+home_tab.subheader('Looking for something else? Check these out... ')
+airbnb, book, game, anime = home_tab.columns(4)
 
 
 #! airbnb
