@@ -132,6 +132,42 @@ with col3:
 
 
     # Start exploring and find your next great movie with ease!
+st.header("")    
+st.subheader('Looking for something else? Check these out... ')
+airbnb, book, game, anime = st.columns(4)
+
+
+#! airbnb
+with airbnb:
+    airbnb_image = 'https://media1.tenor.com/m/rsSIoLjds9UAAAAC/airbnb-door.gif'
+    airbnb_redirect = "https://www.airbnb.com.tr/"
+    airbnb_html = f"""<a href="{airbnb_redirect}" target="_blank"><img src="{airbnb_image}" style="width:250px; height:200px;"></a>"""
+    airbnb.markdown(airbnb_html, unsafe_allow_html=True)
+    airbnb.subheader('A Place to Stay')
+
+#! book
+with book:
+    image_book = "https://media1.tenor.com/m/e45JF2Wtvv0AAAAC/cat99-cat999.gif"
+    redirect_book = "https://www.amazon.com/Best-Books-of-2024-So-Far/b?ie=UTF8&node=3003015011"
+    html_book = f"""<a href="{redirect_book}" target="_blank"><img src="{image_book}" style="width:250px; height:200px;"></a>"""
+    book.markdown(html_book, unsafe_allow_html=True)
+    book.subheader('Something to Read')
+
+#! game
+with game:
+    image_game = "https://media1.tenor.com/m/zjbXreUb5_YAAAAd/steam.gif"
+    redirect_game = "https://store.steampowered.com/"
+    html_game = f"""<a href="{redirect_game}" target="_blank"><img src="{image_game}" style="width:250px; height:200px;"></a>"""
+    game.markdown(html_game, unsafe_allow_html=True)
+    game.subheader('A Game to Play')
+
+#! anime
+with anime:
+    image_anime = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTE4bWtqbHFqd3lma2Vla3duMTB2dWNlOHNndnl3aHh5bmF0cmZsZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/11KzOet1ElBDz2/giphy.webp"
+    redirect_anime = "https://deathnote.fandom.com/wiki/Death_Note_Wiki"
+    html_anime = f"""<a href="{redirect_anime}" target="_blank"><img src="{image_anime}" style="width:250px; height:200px;"></a>"""
+    anime.markdown(html_anime, unsafe_allow_html=True)
+    anime.subheader('An Anime to Watch')
 
 
 
@@ -178,3 +214,4 @@ with recommendation_tab:  # 'home_tab' yerine st.container kullanın
                     
                     # Film adını standart font boyutunda gösterme
                     movie_col.markdown(f'<p style="text-align: center; font-size: 18px; font-weight: bold;">{movie_title}</p>', unsafe_allow_html=True)
+
