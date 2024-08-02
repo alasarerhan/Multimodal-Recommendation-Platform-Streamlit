@@ -32,7 +32,7 @@ with st.container():  # 'home_tab' yerine st.container kullanın
     #! imdb column
     col_movie.header('Watch Great Movies')
     image_movie = 'https://media.tenor.com/HJTXKCtOYwgAAAAM/perfect-popcorn.gif'
-    redirect_movie = "https://appent-g9qe2nhwhrvvgnhkqybvzq.streamlit.app/"
+    redirect_movie = "https://miuulmovierecommender.streamlit.app/"
     html_movie = f"""<a href="{redirect_movie}" target="_blank"><img src="{image_movie}" style="width:250px; height:200px;"></a>"""
     col_movie.markdown(html_movie, unsafe_allow_html=True)
 

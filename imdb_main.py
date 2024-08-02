@@ -156,7 +156,7 @@ with book:
 #! game
 with game:
     image_game = "https://media1.tenor.com/m/zjbXreUb5_YAAAAd/steam.gif"
-    redirect_game = "https://store.steampowered.com/"
+    redirect_game = "https://appent-4a74fdw7esdjc7iw7rsteam.streamlit.app/"
     html_game = f"""<a href="{redirect_game}" target="_blank"><img src="{image_game}" style="width:250px; height:200px;"></a>"""
     game.markdown(html_game, unsafe_allow_html=True)
     game.subheader('A Game to Play')
