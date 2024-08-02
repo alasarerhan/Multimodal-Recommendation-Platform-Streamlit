@@ -28,13 +28,6 @@ def calculate_cosine_sim(dataframe):
 cosine_sim = calculate_cosine_sim(meta)
 
 
-@st.cache_data
-def get_popular_movies():
-    popular_movies = pd.read_csv('popular_movies.csv')
-    return popular_movies
-
-popular_movies = get_popular_movies()
-
 
 def content_based_recommender(title, cosine_sim, dataframe):
     # index'leri olusturma
@@ -55,10 +48,6 @@ def content_based_recommender(title, cosine_sim, dataframe):
     return dataframe.loc[movie_indices]
 
 
-
-# image_url = 'https://preview.redd.it/1jofyu3ugsiz.jpg?width=1080&crop=smart&auto=webp&s=b593d7f1b52361c017891525e239a12a737d291e'
-# html_image = f"""<div style="display: flex; justify-content: center;"><img src="{image_url}" style="width:100%; max-width:1400px; height:400px;"></div>"""
-# st.markdown(html_image, unsafe_allow_html=True)
 
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
@@ -101,28 +90,49 @@ home_tab, recommendation_tab = st.tabs(['Home', 'Recommend'])
 
 
 
-
-# Movie genres dictionary
-
-
 home_tab.header(":rainbow[Miuul Movie Recommender] Your :blue[AI] Powered Recommender Friend")
 
 # with home_tab.container():  # Adjust to your layout
 
-col1, col2 = home_tab.columns([1, 2])  # Adjust the ratio as needed
+col1, col2, col3 = home_tab.columns(3)  # Adjust the ratio as needed
+font_style = 'font-size: 16px;'
+heading_style = 'font-size: 20px; margin-bottom: 5px;'
 
 with col1:
-    # Introduction text in the first column
+        st.markdown("""
+            <div style="text-align: justify; {}; ">
+            Discover your next favorite film with our personalized recommendations! At Miuul, we use advanced algorithms to suggest movies tailored to your tastes. Explore popular genres, get movie suggestions based on your favorites, and view detailed information with IMDb integration.
+            </div>
+            """.format(font_style), unsafe_allow_html=True)
+        st.markdown("")
+        st.markdown('<div style="width:450px;height:300px;"><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHp4czExdnpkYTRzYnJnazQyY21tbzI1Mmh2dnNoZzVuMnU3YmlubSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VGG8UY1nEl66Y/giphy.webp" style="width:100%; height:100%; object-fit:cover;"></div>', 
+            unsafe_allow_html=True)
+
+with col2:
+    st.markdown('<div style="width:450px;height:300px;"><img src="https://media4.giphy.com/media/n5FovccDXbcOY/giphy.webp?cid=790b7611u348p2n3bwby2xos1v936j2gb1r9h6wyrs8lrt00&ep=v1_gifs_search&rid=giphy.webp&ct=g" style="width:100%; height:100%; object-fit:cover;"></div>', 
+        unsafe_allow_html=True)
     st.markdown("""
-    Discover your next favorite film with our personalized recommendations! At Miuul, we use advanced algorithms to suggest movies tailored to your tastes. Explore popular genres, get movie suggestions based on your favorites, and view detailed information with IMDb integration.
+    <div style="text-align: justify; {}; ">
+        <strong style="{}">What We Offer:</strong><br>
+        <strong>Personalized Recommendations:</strong> Find movies similar to those you love.<br>
+        <strong>Rich Visuals:</strong> Access movie posters and details via IMDb.
+    </div>
+    """.format(font_style, heading_style), unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+        <div style="text-align: justify; {}; ">
+        <strong style="{}">How It Works:</strong><br>
+        Our system analyzes your preferences and viewing history to provide tailored movie suggestions. By leveraging advanced algorithms and data from various sources, including IMDb, we deliver accurate and engaging recommendations. Simply explore the suggested movies, view their details, and enjoy discovering your next favorite film!
+        </div>
+        """.format(font_style, heading_style), unsafe_allow_html=True)
     
-    **What We Offer:**
-    - **Diverse Categories:** From popular hits to action, sci-fi, drama, comedy, and thriller.
-    - **Personalized Recommendations:** Find movies similar to those you love.
-    - **Rich Visuals:** Access movie posters and details via IMDb.
-    
-    Start exploring and find your next great movie with ease!
-    """)
+    st.markdown('<div style="width:450px;height:300px;"><img src="https://media3.giphy.com/media/tivaSkhu8MbKM/giphy.webp?cid=790b7611sjrk12dvwbjhnjayw0xawnnjgsziac0zhifwus4u&ep=v1_gifs_search&rid=giphy.webp&ct=g" style="width:100%; height:100%; object-fit:cover;"></div>', 
+        unsafe_allow_html=True)
+
+
+    # Start exploring and find your next great movie with ease!
+
 
 
 with recommendation_tab:  # 'home_tab' yerine st.container kullanın
