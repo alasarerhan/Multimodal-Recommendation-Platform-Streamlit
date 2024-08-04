@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import streamlit.components.v1 as components
 
-st.set_page_config(layout= 'wide', page_title = 'Miuul Movie Recommender')
+st.set_page_config(layout= 'wide', page_title = 'Miuul Movie Recommender',page_icon=":clapper:")
 
 
 @st.cache_data
