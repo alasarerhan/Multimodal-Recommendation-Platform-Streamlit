@@ -86,17 +86,41 @@ css = '''
 
 st.markdown(css, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+    /* Sekmelerin varsayılan stilini ayarla */
+    .streamlit-expanderHeader {
+        color: white;
+        border: none;
+        padding: 0px;
+    }
+
+    /* Seçili sekmenin altındaki çizgiyi ve rengini değiştir */
+    .streamlit-expanderHeader[data-testid="stExpanderHeader"][aria-selected="true"] {
+        color: #39FF14; /* Burada istediğiniz rengi belirleyin */
+        border-bottom: 3px solid #39FF14; /* Çizginin rengini burada belirleyin */
+    }
+
+    /* Sekme üzerine gelindiğinde (hover) rengini değiştir */
+    .streamlit-expanderHeader:hover {
+        color: #39FF14; /* Burada istediğiniz rengi belirleyin */
+    }
+
+    /* Sekme içeriklerinin stilini ayarlamak için */
+    .streamlit-expanderContent {
+        border: none;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 home_tab, recommendation_tab = st.tabs(['Home', 'Recommend'])
 
-
-
-home_tab.header(":rainbow[Miuul Movie Recommender] Your :blue[AI] Powered Recommender Friend")
 
 # with home_tab.container():  # Adjust to your layout
 
 col1, col2, col3 = home_tab.columns(3)  # Adjust the ratio as needed
 font_style = 'font-size: 16px;'
-heading_style = 'font-size: 20px; margin-bottom: 5px;'
+heading_style = 'font-size: 16px; margin-bottom: 5px;'
 
 with col1:
         st.markdown("""
@@ -133,42 +157,106 @@ with col3:
 
     # Start exploring and find your next great movie with ease!
 st.header("")    
-home_tab.subheader('Looking for something else? Check these out... ')
 airbnb, book, game, anime = home_tab.columns(4)
 
+home_tab.markdown('''
+<style>
+.title-background {
+    background-color: skyblue; /* Skyblue */
+    color: #666666;
+    text-align: center;
+    border-radius: 15px; /* Köşeleri yuvarlatır */
+    padding: 10px 20px; /* İç boşluk */
+    border: 1px solid #1DB954; /* Çerçeve rengi ve kalınlığı */
+    font-size: 10px; /* Yazı boyutu */
+    width: 100%; /* Çerçeve genişliği */
+    height: 50px; /* Çerçeve yüksekliği */
+    display: flex; /* Flexbox kullanımı */
+    align-items: center; /* Dikey merkezleme */
+    justify-content: center; /* Yatay merkezleme */
+}
+.title-background h1 {
+        color: white;
+        font-size: 20px;  / Yazı boyutunu küçültün /
+        margin: 0;  / Başlık etrafındaki varsayılan boşlukları kaldırın /
+        text-align: center;  / Metni ortalayın */
+    }
+    </style>
+</style>
 
-#! airbnb
-with airbnb:
-    airbnb_image = 'https://media1.tenor.com/m/rsSIoLjds9UAAAAC/airbnb-door.gif'
-    airbnb_redirect = "https://airbnbrecommendations.streamlit.app/"
-    airbnb_html = f"""<a href="{airbnb_redirect}" target="_blank"><img src="{airbnb_image}" style="width:250px; height:200px;"></a>"""
-    airbnb.markdown(airbnb_html, unsafe_allow_html=True)
-    airbnb.subheader('A Place to Stay')
+<div class="title-background">
+    <h1>Discover Your Next Adventure!</h1>
+</div>
+''', unsafe_allow_html=True)
+home_tab.markdown("<br>", unsafe_allow_html=True)
+home_tab.markdown("<br>", unsafe_allow_html=True)
 
-#! book
-with book:
-    image_book = "https://media1.tenor.com/m/e45JF2Wtvv0AAAAC/cat99-cat999.gif"
-    redirect_book = "https://www.amazon.com/Best-Books-of-2024-So-Far/b?ie=UTF8&node=3003015011"
-    html_book = f"""<a href="{redirect_book}" target="_blank"><img src="{image_book}" style="width:250px; height:200px;"></a>"""
-    book.markdown(html_book, unsafe_allow_html=True)
-    book.subheader('Something to Read')
 
-#! game
-with game:
-    image_game = "https://media1.tenor.com/m/zjbXreUb5_YAAAAd/steam.gif"
-    redirect_game = "https://gamerecommendations.streamlit.app/"
-    html_game = f"""<a href="{redirect_game}" target="_blank"><img src="{image_game}" style="width:250px; height:200px;"></a>"""
-    game.markdown(html_game, unsafe_allow_html=True)
-    game.subheader('A Game to Play')
 
-#! anime
-with anime:
-    image_anime = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTE4bWtqbHFqd3lma2Vla3duMTB2dWNlOHNndnl3aHh5bmF0cmZsZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/11KzOet1ElBDz2/giphy.webp"
+with home_tab.container():  # 'home_tab' yerine st.container kullanın
+
+    col1, col2, col3, col4, col5, col6 = st.columns([1, 0.45, 0.45, 0.45, 1,0.5], gap='large')
+
+    # ! anime column
+    image_anime = "https://i.giphy.com/11KzOet1ElBDz2.webp"
     redirect_anime = "https://animerecommendations.streamlit.app/"
-    html_anime = f"""<a href="{redirect_anime}" target="_blank"><img src="{image_anime}" style="width:250px; height:200px;"></a>"""
-    anime.markdown(html_anime, unsafe_allow_html=True)
-    anime.subheader('An Anime to Watch')
 
+    html_anime = f"""
+    <div style="position: relative; width: 150px; height: 150px;">
+        <a href="{redirect_anime}" target="_blank">
+            <img src="{image_anime}" style="width:150px;height:150px;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5); color: white; font-size: 15px; font-weight: bold;">ANIME</div>
+        </a>
+    </div>
+    """
+
+    col2.markdown(html_anime, unsafe_allow_html=True)
+
+
+    # ! airbnb column
+    image_airbnb = 'https://media1.tenor.com/m/rsSIoLjds9UAAAAC/airbnb-door.gif'
+    redirect_airbnb = "https://airbnbrecommendations.streamlit.app/"
+
+    html_airbnb = f"""
+    <div style="position: relative; width: 150px; height: 150px;">
+        <a href="{redirect_airbnb}" target="_blank">
+            <img src="{image_airbnb}" style="width:150px;height:150px;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5); color: white; font-size: 15px; font-weight: bold;">AIRBNB</div>
+        </a>
+    </div>
+    """
+
+    col3.markdown(html_airbnb, unsafe_allow_html=True)
+
+
+    # ! amazon column
+    image_amazon = "https://c.tenor.com/xrld-zE_4IAAAAAd/tenor.gif"
+    redirect_amazon = "https://www.amazon.com/Best-Books-of-2024-So-Far/b?ie=UTF8&node=3003015011"
+    html_amazon = f"""
+    <div style="position: relative; width: 150px; height: 150px;">
+        <a href="{redirect_amazon}" target="_blank">
+            <img src="{image_amazon}" style="width:150px;height:150px;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5); color: white; font-size: 15px; font-weight: bold;">BOOK</div>
+        </a>
+    </div>
+    """
+
+    col4.markdown(html_amazon, unsafe_allow_html=True)
+
+    # ! steam column
+    image_steam = "https://media1.tenor.com/m/zjbXreUb5_YAAAAd/steam.gif"
+    redirect_steam = "https://store.steampowered.com/"
+
+    html_steam = f"""
+    <div style="position: relative; width: 150px; height: 150px;">
+        <a href="{redirect_steam}" target="_blank">
+            <img src="{image_steam}" style="width:150px;height:150px;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5); color: white; font-size: 15px; font-weight: bold;">GAME</div>
+        </a>
+    </div>
+    """
+
+    col5.markdown(html_steam, unsafe_allow_html=True)
 
 
 with recommendation_tab:  # 'home_tab' yerine st.container kullanın
