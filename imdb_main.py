@@ -164,7 +164,7 @@ with game:
 #! anime
 with anime:
     image_anime = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTE4bWtqbHFqd3lma2Vla3duMTB2dWNlOHNndnl3aHh5bmF0cmZsZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/11KzOet1ElBDz2/giphy.webp"
-    redirect_anime = "https://deathnote.fandom.com/wiki/Death_Note_Wiki"
+    redirect_anime = "https://animerecommendations.streamlit.app/"
     html_anime = f"""<a href="{redirect_anime}" target="_blank"><img src="{image_anime}" style="width:250px; height:200px;"></a>"""
     anime.markdown(html_anime, unsafe_allow_html=True)
     anime.subheader('An Anime to Watch')
