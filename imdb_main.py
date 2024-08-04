@@ -79,7 +79,7 @@ with col5:
 css = '''
 <style>
     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-    font-size:1.5rem;
+    font-size:1rem;
     }
 </style>
 '''
@@ -88,33 +88,50 @@ st.markdown(css, unsafe_allow_html=True)
 
 st.markdown("""
     <style>
-    /* Sekmelerin varsayılan stilini ayarla */
-    .streamlit-expanderHeader {
-        color: white;
-        border: none;
-        padding: 0px;
+    /* Sekme başlıklarını hedefle ve stil uygula */
+    .stTabs [role="tab"] {
+        font-size: 10px; /* Yazı boyutu */
+        border: 2px solid #000000; /* Kenarlık rengi ve kalınlığı */
+        color: white; /* Metin rengi */
+        padding: 10px; /* İç boşluk */
+        border-radius: 10px 10px 0 0; /* Köşeleri yuvarlat */
+        background-color: #000000; /* Arka plan rengi */
     }
 
-    /* Seçili sekmenin altındaki çizgiyi ve rengini değiştir */
-    .streamlit-expanderHeader[data-testid="stExpanderHeader"][aria-selected="true"] {
-        color: #39FF14; /* Burada istediğiniz rengi belirleyin */
-        border-bottom: 3px solid #39FF14; /* Çizginin rengini burada belirleyin */
+    /* Seçili sekme stilini değiştir */
+    .stTabs [role="tab"][aria-selected="true"] {
+        font-size: 10px; /* Yazı boyutu */
+        border-bottom: 3px solid skyblue; /* Alt çizgi rengi ve kalınlığı */
+        color: skyblue; /* Metin rengi */
     }
 
-    /* Sekme üzerine gelindiğinde (hover) rengini değiştir */
-    .streamlit-expanderHeader:hover {
-        color: #39FF14; /* Burada istediğiniz rengi belirleyin */
-    }
-
-    /* Sekme içeriklerinin stilini ayarlamak için */
-    .streamlit-expanderContent {
-        border: none;
+    /* Sekme üzerine gelindiğinde (hover) stilini değiştir */
+    .stTabs [role="tab"]:hover {
+        color: skyblue; /* Metin rengi */
+        border-color: black; /* Kenarlık rengi */
     }
     </style>
     """, unsafe_allow_html=True)
 
-home_tab, recommendation_tab = st.tabs(['Home', 'Recommend'])
-
+# Sekmeleri oluştur
+home_tab, recommendation_tab = st.tabs(['Home', 'Movie Recommendation'])
+st.markdown(
+    """
+    <style>
+    .stButton > button {
+        background-color: black;
+        color: skyblue;
+        border: 2px solid black; /* Varsayılan çerçeve rengi /
+        transition: color 0.3s, border-color 0.3s; / Renk değişiminin daha yumuşak olması için /
+    }
+    .stButton > button:hover {
+        color: skyblue; / Mouse üzerine gelindiğinde yazı rengi /
+        border-color: black; / Mouse üzerine gelindiğinde çerçeve rengi bordo */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # with home_tab.container():  # Adjust to your layout
 
@@ -122,14 +139,19 @@ col1, col2, col3 = home_tab.columns(3)  # Adjust the ratio as needed
 font_style = 'font-size: 16px;'
 heading_style = 'font-size: 16px; margin-bottom: 5px;'
 
+
+
+
+
 with col1:
-        st.markdown("""
-            <div style="text-align: justify; {}; ">
-            Discover your next favorite film with our personalized recommendations! At Miuul, we use advanced algorithms to suggest movies tailored to your tastes. Explore popular genres, get movie suggestions based on your favorites, and view detailed information with IMDb integration.
-            </div>
-            """.format(font_style), unsafe_allow_html=True)
-        st.markdown("")
-        st.markdown('<div style="width:450px;height:300px;"><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHp4czExdnpkYTRzYnJnazQyY21tbzI1Mmh2dnNoZzVuMnU3YmlubSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VGG8UY1nEl66Y/giphy.webp" style="width:100%; height:100%; object-fit:cover;"></div>', 
+    st.markdown("""
+    <div style="text-align: justify; {}; ">
+        <strong style="color: skyblue; {}">Personalized Recommendations</strong><br>
+        <strong>Our system uses advanced algorithms to analyze your movie preferences and recommend films that match your taste. Discover hidden gems and timeless classics tailored just for you.<br>
+    </div>
+    """.format(font_style, heading_style), unsafe_allow_html=True)
+    st.markdown("")
+    st.markdown('<div style="width:450px;height:300px;"><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHp4czExdnpkYTRzYnJnazQyY21tbzI1Mmh2dnNoZzVuMnU3YmlubSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VGG8UY1nEl66Y/giphy.webp" style="width:100%; height:100%; object-fit:cover;"></div>', 
             unsafe_allow_html=True)
 
 with col2:
@@ -137,16 +159,18 @@ with col2:
         unsafe_allow_html=True)
     st.markdown("""
     <div style="text-align: justify; {}; ">
-        <strong style="{}">What We Offer:</strong><br>
+        <strong style="color: skyblue; {}">What We Offer:</strong><br>
         <strong>Personalized Recommendations:</strong> Find movies similar to those you love.<br>
         <strong>Rich Visuals:</strong> Access movie posters and details via IMDb.
     </div>
     """.format(font_style, heading_style), unsafe_allow_html=True)
+    col2.markdown("<br>", unsafe_allow_html=True)
 
+    
 with col3:
     st.markdown("""
         <div style="text-align: justify; {}; ">
-        <strong style="{}">How It Works:</strong><br>
+        <strong style="color: skyblue; {}">How It Works:</strong><br>
         Our system analyzes your preferences and viewing history to provide tailored movie suggestions. By leveraging advanced algorithms and data from various sources, including IMDb, we deliver accurate and engaging recommendations. Simply explore the suggested movies, view their details, and enjoy discovering your next favorite film!
         </div>
         """.format(font_style, heading_style), unsafe_allow_html=True)
@@ -155,7 +179,6 @@ with col3:
         unsafe_allow_html=True)
 
 
-    # Start exploring and find your next great movie with ease!
 st.header("")    
 airbnb, book, game, anime = home_tab.columns(4)
 
@@ -168,7 +191,7 @@ home_tab.markdown('''
     border-radius: 15px; /* Köşeleri yuvarlatır */
     padding: 10px 20px; /* İç boşluk */
     border: 1px solid #1DB954; /* Çerçeve rengi ve kalınlığı */
-    font-size: 10px; /* Yazı boyutu */
+    font-size: 20px; /* Yazı boyutu */
     width: 100%; /* Çerçeve genişliği */
     height: 50px; /* Çerçeve yüksekliği */
     display: flex; /* Flexbox kullanımı */
@@ -185,7 +208,7 @@ home_tab.markdown('''
 </style>
 
 <div class="title-background">
-    <h1>Discover Your Next Adventure!</h1>
+    <h1>Discover More!</h1>
 </div>
 ''', unsafe_allow_html=True)
 home_tab.markdown("<br>", unsafe_allow_html=True)
@@ -231,7 +254,7 @@ with home_tab.container():  # 'home_tab' yerine st.container kullanın
 
     # ! amazon column
     image_amazon = "https://c.tenor.com/xrld-zE_4IAAAAAd/tenor.gif"
-    redirect_amazon = "https://www.amazon.com/Best-Books-of-2024-So-Far/b?ie=UTF8&node=3003015011"
+    redirect_amazon = "https://book-recomendations.streamlit.app/"
     html_amazon = f"""
     <div style="position: relative; width: 150px; height: 150px;">
         <a href="{redirect_amazon}" target="_blank">
@@ -245,7 +268,7 @@ with home_tab.container():  # 'home_tab' yerine st.container kullanın
 
     # ! steam column
     image_steam = "https://media1.tenor.com/m/zjbXreUb5_YAAAAd/steam.gif"
-    redirect_steam = "https://store.steampowered.com/"
+    redirect_steam = "https://gamerecommendations.streamlit.app/"
 
     html_steam = f"""
     <div style="position: relative; width: 150px; height: 150px;">
@@ -260,7 +283,6 @@ with home_tab.container():  # 'home_tab' yerine st.container kullanın
 
 
 with recommendation_tab:  # 'home_tab' yerine st.container kullanın
-    st.header(':rainbow[Movie Recommender]')
     movie_col1, movie_col2, movie_col3 = st.columns([1,2,1])
     selected_movie = movie_col2.selectbox('Choose a movie you like.', options=meta.title.unique())
 
@@ -269,12 +291,13 @@ with recommendation_tab:  # 'home_tab' yerine st.container kullanın
     # İlk 5 filmi göstermek için 5 kolon
     row1_cols = st.columns(5)
     # Sonraki 5 filmi göstermek için 5 kolon
+    row2_cols = st.columns(5)
 
     tmdbcol1, tmdbcol2, tmdbcol3 = st.columns([1,0.5,1], gap='large')
     recommend_button = tmdbcol2.button('Recommend a Movie')
 
     if recommend_button:
-        for index, movie_col in enumerate(row1_cols):
+        for index, movie_col in enumerate(row1_cols+row2_cols):
             if index < len(recommendations_df):
                 movie_row = recommendations_df.iloc[index]
                 movie_id = movie_row['id']
