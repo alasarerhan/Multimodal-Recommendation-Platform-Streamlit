@@ -140,7 +140,7 @@ airbnb, book, game, anime = home_tab.columns(4)
 #! airbnb
 with airbnb:
     airbnb_image = 'https://media1.tenor.com/m/rsSIoLjds9UAAAAC/airbnb-door.gif'
-    airbnb_redirect = "https://www.airbnb.com.tr/"
+    airbnb_redirect = "https://airbnbrecommendations.streamlit.app/"
     airbnb_html = f"""<a href="{airbnb_redirect}" target="_blank"><img src="{airbnb_image}" style="width:250px; height:200px;"></a>"""
     airbnb.markdown(airbnb_html, unsafe_allow_html=True)
     airbnb.subheader('A Place to Stay')
