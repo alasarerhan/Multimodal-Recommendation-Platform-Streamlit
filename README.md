@@ -1,47 +1,35 @@
-# Miuul Entertainment - Movie Recommendation and Image Scraping
+# Miuul Entertainment - Recommendation System
+## Business Problem
+A comprehensive recommendation system has been developed to provide personalized suggestions for Airbnb homes, anime, games, movies, and books. The goal is to enhance user experience by predicting user preferences and recommending relevant content across these categories. The movie recommendation component uses content-based filtering to suggest films similar to the ones users have selected.
 
-This repository contains the movie recommendation system and a script to scrape movie images from IMDb. These are key components of the Miuul Entertainment site.
+## About Datasets
+### Airbnb Dataset
+Airbnb is an online marketplace for vacation home rentals and tourism activities. This dataset describes the listing activities of bed and breakfasts in New York City. The dataset contains various attributes such as neighborhood, room type, price, and availability, which are used to recommend suitable Airbnb homes to users.
 
-## Overview
+### Anime Dataset
+The anime dataset from MyAnimeList.net contains information about various anime series, including genres, studios, ratings, and user reviews. The system predicts the ratings users would give to anime they haven’t watched and suggests similar anime based on their preferences.
 
-Miuul Entertainment offers personalized movie recommendations and visually rich content sourced from IMDb. 
+### Game Dataset
+The game dataset contains information about games available on Steam, such as release dates, platform availability, ratings, and user reviews. The system recommends games based on their attributes and the similarity to games users have shown interest in.
 
-**Visit our site:** [Miuul Entertainment](https://miuulentertainment.streamlit.app/)
+### Movie Dataset
+This dataset is used to provide personalized movie recommendations based on movie metadata such as genres, overview, and user ratings. Movie posters and details are fetched from IMDb to enrich the user experience.
 
-## Movie Recommendation System
+### Book Dataset
+This dataset includes user ratings and metadata from Amazon for over 200,000 unique books. The recommendation system suggests books based on user preferences and the attributes of books they have rated.
 
-The movie recommendation system uses content-based filtering to suggest movies similar to the ones you like.
+### Solution
+The recommendation system leverages a combination of machine learning techniques and content-based filtering to analyze user preferences and provide tailored recommendations across different content types:
 
-### Files
+Airbnb: The system uses unsupervised learning methods, specifically K-Means clustering, to categorize listings based on features like location, price, and room type. Folium is then used to visualize these clusters on an interactive map, helping users find the most suitable Airbnb homes.
 
-- `imdb_main.py`: Streamlit application file for the movie recommendation system.
-- `movie_recommendation_file.csv`: CSV file containing movie metadata.
+Movies, Games, and Books: Item-based and user-based filtering techniques are applied to recommend content similar to what users have shown interest in or rated highly.
 
-### Main Features
+Anime: In addition to item-based and user-based filtering, the system employs model-based filtering using XGBoost. This approach predicts the ratings users would give to anime they haven’t watched yet, providing more accurate and personalized recommendations.
 
-- **Personalized Recommendations:** The system analyzes movie metadata and provides recommendations based on the selected movie's content.
-- **Rich Visuals:** Access movie posters and details via IMDb.
+Each recommendation engine within the system is designed to handle the specific attributes and nuances of the content it suggests, ensuring that users receive the most relevant and engaging suggestions across all categories.
 
 ### How It Works
-
-Users can select a movie they like from the Streamlit app. The system provides a list of similar movies based on the movie's overview, title, and genres.
-
-## IMDb Image Scraping
-
-The `scrape.py` script fetches movie images from IMDb using IMDb IDs.
-
-### Files
-
-- `scrape.py`: Script for scraping movie images from IMDb.
-
-### Main Features
-
-- **Fetch Movie Images:** Retrieve high-quality movie posters directly from IMDb using the movie's IMDb ID.
-
-## Additional Information
-
-This repository is a part of the larger Miuul Entertainment project, which includes various entertainment recommendations. Explore our [site](https://miuulentertainment.streamlit.app/) for more!
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more information.
+Personalized Recommendations: Users can interact with the system to receive recommendations for Airbnb homes, anime, games, movies, and books.
+Rich Visuals: The system integrates with external APIs to fetch images and additional content details, enhancing the user experience.
+# Visit our site: https://miuulentertainment.streamlit.app/
